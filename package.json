@@ -1,0 +1,26 @@
+{
+  "name": "nexplore",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noesmitipo/Nexplore.git"
+  },
+  "author": "Sergio Ferrer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noesmitipo/Nexplore/issues"
+  },
+  "homepage": "https://github.com/noesmitipo/Nexplore#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2"
+  }
+}
