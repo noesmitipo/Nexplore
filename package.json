@@ -12,10 +12,6 @@
     "url": "git+https://github.com/noesmitipo/Nexplore.git"
   },
   "author": "Sergio Ferrer",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/noesmitipo/Nexplore/issues"
-  },
   "homepage": "https://github.com/noesmitipo/Nexplore#readme",
   "devDependencies": {
     "@types/express": "^4.17.15",
@@ -25,6 +21,8 @@
   },
   "dependencies": {
     "body-parser": "^1.20.1",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "postgres": "^3.3.3",
+    "sequelize": "^6.28.0"
   }
 }
