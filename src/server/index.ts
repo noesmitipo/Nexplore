@@ -1,8 +1,7 @@
 import bodyParser from "body-parser";
 import express from "express";
-import sequelizeConnection from "./db/db-config";
 import dutyRouter from "./api/routes/duty-router";
-import dbInit from "./db/init";
+import dbInit from "./db/db-init";
 
 const port = 3003;
 
