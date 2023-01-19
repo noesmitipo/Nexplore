@@ -1,5 +1,3 @@
-import { Optional } from "sequelize/types";
-
 export type CreateDutyDto = {
   name: string;
 };

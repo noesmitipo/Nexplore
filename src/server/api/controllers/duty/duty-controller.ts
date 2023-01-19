@@ -1,28 +1,30 @@
-import { CreateDutyDto, UpdateDutyDto } from "../../dto/duty.dto";
+import { DutyOutput } from "../../../db/models/duty-model";
 import * as dutyService from "../../../db/services/duty-service";
-import { Duty } from "../../interfaces/duty.interface";
-import * as dutyMapper from "./duty-mapper";
+import { CreateDutyDto, UpdateDutyDto } from "../../dto/duty.dto";
+import { Result } from "../../Result";
 
-export const getAll = async (): Promise<Duty[]> => {
-  return (await dutyService.getAll()).map(dutyMapper.toDuty);
+export const getAll = async (): Promise<Result<DutyOutput[]>> => {
+  return await dutyService.getAll();
 };
 
-export const getById = async (id: string): Promise<Duty> => {
-  return dutyMapper.toDuty(await dutyService.getById(id));
+export const getById = async (id: string): Promise<Result<DutyOutput>> => {
+  return await dutyService.getById(id);
 };
 
-export const create = async (payload: CreateDutyDto): Promise<Duty> => {
-  return dutyMapper.toDuty(await dutyService.create(payload));
+export const create = async (
+  payload: CreateDutyDto
+): Promise<Result<DutyOutput>> => {
+  return await dutyService.create(payload);
 };
 
 export const update = async (
   id: string,
   payload: UpdateDutyDto
-): Promise<Duty> => {
-  return dutyMapper.toDuty(await dutyService.update(id, payload));
+): Promise<Result<DutyOutput>> => {
+  return await dutyService.update(id, payload);
 };
 
-export const deleteById = async (id: string): Promise<Boolean> => {
+export const deleteById = async (id: string): Promise<Result<Boolean>> => {
   const isDeleted = await dutyService.deleteById(id);
 
   return isDeleted;

@@ -6,20 +6,35 @@ const dutyRouter = Router();
 
 dutyRouter.get("/", async (req: Request, res: Response) => {
   const result = await dutyController.getAll();
-  return res.status(200).json(result);
+
+  if (result.isSuccess) {
+    return res.status(200).json(result.getValue());
+  } else {
+    return res.status(500).json(result.error);
+  }
 });
 
 dutyRouter.get("/:id", async (req: Request, res: Response) => {
   const id = req.params.id;
   const result = await dutyController.getById(id);
-  return res.status(200).json(result);
+
+  if (result.isSuccess) {
+    return res.status(200).json(result.getValue());
+  } else {
+    return res.status(404).json(result.error);
+  }
 });
 
 dutyRouter.post("/", async (req: Request, res: Response) => {
   const payload: CreateDutyDto = req.body;
 
   const result = await dutyController.create(payload);
-  return res.status(201).send(result);
+
+  if (result.isSuccess) {
+    return res.status(201).json(result.getValue());
+  } else {
+    return res.status(500).json(result.error);
+  }
 });
 
 dutyRouter.put("/:id", async (req: Request, res: Response) => {
@@ -27,13 +42,22 @@ dutyRouter.put("/:id", async (req: Request, res: Response) => {
   const payload: UpdateDutyDto = req.body;
 
   const result = await dutyController.update(id, payload);
-  return res.status(200).send(result);
+
+  if (result.isSuccess) {
+    return res.status(200).json(result.getValue());
+  } else {
+    return res.status(404).json(result.error);
+  }
 });
 
 dutyRouter.delete("/:id", async (req: Request, res: Response) => {
   const id = req.params.id;
   const result = await dutyController.deleteById(id);
-  return res.status(200).json(result);
+  if (result.isSuccess) {
+    return res.status(200).json(result.getValue());
+  } else {
+    return res.status(404).json(result.error);
+  }
 });
 
 export default dutyRouter;
