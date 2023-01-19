@@ -1,8 +1,24 @@
 import bodyParser from "body-parser";
 import express from "express";
+import sequelizeConnection from "./db/db-config";
+import dutyRouter from "./api/routes/duty-router";
+import dbInit from "./db/init";
 
-const app = express();
+const port = 3003;
 
-app.use(bodyParser.json());
+const start = () => {
+  const app = express();
+  app.use(bodyParser.json());
+  app.use("/duty/", dutyRouter);
 
-app.listen(3003);
+  try {
+    app.listen(port, () => {
+      console.log(`Server running on port: ${port}`);
+    });
+  } catch (error) {
+    console.log(`Error occurred: ${error}`);
+  }
+};
+
+dbInit();
+start();
