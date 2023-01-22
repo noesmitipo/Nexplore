@@ -2,7 +2,6 @@
   "name": "nexplore",
   "version": "1.0.0",
   "private": true,
-  "description": "",
   "workspaces": [
     "src/client",
     "src/server"
