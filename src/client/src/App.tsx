@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useEffect, useState } from "react";
+import { Button, Form, Input, List } from "antd";
+import useApi from "./hooks/use-api";
+import { Duty } from "./intefaces/duty";
+import { AddDutyForm } from "./components/add-duty-form";
+import { DutyList } from "./components/duty-list";
 
-function App() {
+const App = () => {
+  const api = useApi();
+  const [duties, setDuties] = useState<Duty[]>([]);
+
+  const fetchDuties = useCallback(async () => {
+    const result = await api.getDuties();
+    setDuties(result);
+  }, []);
+
+  useEffect(() => {
+    fetchDuties();
+  }, []);
+
+  const onDutyAdded = useCallback((duty: Duty) => {
+    setDuties((items) => [...items, duty]);
+  }, []);
+
+  const onDutyDeleted = useCallback((id: string) => {
+    setDuties((items) => [...items.filter((item) => item.id !== id)]);
+  }, []);
+
+  const onDutyUpdated = useCallback(async () => {
+    await fetchDuties();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AddDutyForm dutyAdded={onDutyAdded} />
+      <DutyList
+        duties={duties}
+        dutyDeleted={onDutyDeleted}
+        dutyUpdated={onDutyUpdated}
+      />
+    </>
   );
-}
+};
 
 export default App;
