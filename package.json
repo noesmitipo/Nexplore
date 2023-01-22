@@ -1,11 +1,18 @@
 {
   "name": "nexplore",
   "version": "1.0.0",
+  "private": true,
   "description": "",
+  "workspaces": [
+    "src/client",
+    "src/server"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:server": "tsc && nodemon src/server/index.ts"
+    "build:client": "npm run build --workspace=src/client",
+    "start:client": "npm run start --workspace=src/client",
+    "start:server": "npm run start --workspace=src/server"
   },
   "repository": {
     "type": "git",
@@ -21,11 +28,18 @@
     "ts-node": "^10.9.1"
   },
   "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
     "body-parser": "^1.20.1",
     "express": "^4.18.2",
     "pg": "^8.8.0",
     "postgres": "^3.3.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
     "sequelize": "^6.28.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "web-vitals": "^2.1.4"
   }
 }
