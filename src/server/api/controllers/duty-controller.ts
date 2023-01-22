@@ -1,7 +1,7 @@
-import { DutyOutput } from "../../../db/models/duty-model";
-import * as dutyService from "../../../db/services/duty-service";
-import { CreateDutyDto, UpdateDutyDto } from "../../dto/duty.dto";
-import { Result } from "../../Result";
+import { DutyOutput } from "../../db/models/duty-model";
+import * as dutyService from "../../db/services/duty-service";
+import { CreateDutyDto, UpdateDutyDto } from "../dto/duty.dto";
+import { Result } from "../Result";
 
 export const getAll = async (): Promise<Result<DutyOutput[]>> => {
   return await dutyService.getAll();
@@ -24,8 +24,6 @@ export const update = async (
   return await dutyService.update(id, payload);
 };
 
-export const deleteById = async (id: string): Promise<Result<Boolean>> => {
-  const isDeleted = await dutyService.deleteById(id);
-
-  return isDeleted;
+export const deleteById = async (id: string): Promise<Result<void>> => {
+  return await dutyService.deleteById(id);
 };

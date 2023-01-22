@@ -23,6 +23,6 @@ export const update = async (
   return dutyDal.update(id, payload);
 };
 
-export const deleteById = async (id: string): Promise<Result<boolean>> => {
+export const deleteById = async (id: string): Promise<Result<void>> => {
   return dutyDal.deleteById(id);
 };

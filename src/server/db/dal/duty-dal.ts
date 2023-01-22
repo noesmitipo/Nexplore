@@ -27,7 +27,7 @@ export const update = async (
   payload: Partial<DutyInput>
 ): Promise<Result<DutyOutput>> => {
   const duty = await DutyModel.findByPk(id);
-  
+
   if (!duty) {
     return Result.fail<DutyOutput>("Duty not found");
   }
@@ -36,7 +36,13 @@ export const update = async (
   return Result.ok<DutyOutput>(updatedDuty);
 };
 
-export const deleteById = async (id: string): Promise<Result<boolean>> => {
-  const deletedDutyCount = await DutyModel.destroy({ where: { id } });
-  return Result.ok<boolean>(deletedDutyCount > 0);
+export const deleteById = async (id: string): Promise<Result<void>> => {
+  const duty = await DutyModel.findByPk(id);
+
+  if (!duty) {
+    return Result.fail<void>("Duty not found");
+  }
+
+  await duty.destroy();
+  return Result.ok<void>();
 };

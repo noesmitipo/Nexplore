@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import * as dutyController from "../controllers/duty/duty-controller";
+import * as dutyController from "../controllers/duty-controller";
 import { CreateDutyDto, UpdateDutyDto } from "../dto/duty.dto";
 
 const dutyRouter = Router();
@@ -7,11 +7,7 @@ const dutyRouter = Router();
 dutyRouter.get("/", async (req: Request, res: Response) => {
   const result = await dutyController.getAll();
 
-  if (result.isSuccess) {
-    return res.status(200).json(result.getValue());
-  } else {
-    return res.status(500).json(result.error);
-  }
+  return res.status(200).json(result.getValue());
 });
 
 dutyRouter.get("/:id", async (req: Request, res: Response) => {
@@ -27,20 +23,14 @@ dutyRouter.get("/:id", async (req: Request, res: Response) => {
 
 dutyRouter.post("/", async (req: Request, res: Response) => {
   const payload: CreateDutyDto = req.body;
-
   const result = await dutyController.create(payload);
 
-  if (result.isSuccess) {
-    return res.status(201).json(result.getValue());
-  } else {
-    return res.status(500).json(result.error);
-  }
+  return res.status(201).json(result.getValue());
 });
 
 dutyRouter.put("/:id", async (req: Request, res: Response) => {
   const id = req.params.id;
   const payload: UpdateDutyDto = req.body;
-
   const result = await dutyController.update(id, payload);
 
   if (result.isSuccess) {
@@ -53,6 +43,7 @@ dutyRouter.put("/:id", async (req: Request, res: Response) => {
 dutyRouter.delete("/:id", async (req: Request, res: Response) => {
   const id = req.params.id;
   const result = await dutyController.deleteById(id);
+
   if (result.isSuccess) {
     return res.status(200).json(result.getValue());
   } else {
