@@ -11,27 +11,33 @@ export const DutyList = (props: {
   const { duties, dutyDeleted, dutyUpdated } = props;
   const api = useApi();
 
-  const deleteItem = useCallback(async (id: string) => {
-    const result = await api.deleteDutyById(id);
-    if (result) {
-      dutyDeleted(id);
-    } else {
-      alert("There was an error while deleting the duty");
-    }
-  }, []);
+  const deleteItem = useCallback(
+    async (id: string) => {
+      const result = await api.deleteDutyById(id);
+      if (result) {
+        dutyDeleted(id);
+      } else {
+        alert("There was an error while deleting the duty");
+      }
+    },
+    [api, dutyDeleted]
+  );
 
-  const updateItem = async (duty: Duty) => {
-    const updatedName = prompt("Please, update the duty", duty.name);
-    if (!updatedName || updatedName === duty.name) return;
+  const updateItem = useCallback(
+    async (duty: Duty) => {
+      const updatedName = prompt("Please, update the duty", duty.name);
+      if (!updatedName || updatedName === duty.name) return;
 
-    const updatedDuty: Duty = { id: duty.id, name: updatedName };
-    const result = await api.updateDuty(updatedDuty);
-    if (result) {
-      dutyUpdated();
-    } else {
-      alert("There was an error while updating the duty");
-    }
-  };
+      const updatedDuty: Duty = { id: duty.id, name: updatedName };
+      const result = await api.updateDuty(updatedDuty);
+      if (result) {
+        dutyUpdated();
+      } else {
+        alert("There was an error while updating the duty");
+      }
+    },
+    [api, dutyUpdated]
+  );
 
   return (
     <List
